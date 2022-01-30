@@ -1,96 +1,503 @@
-Rule:
-0: 1 2
-1: "a"
-2: 1 3 | 3 1
-3: "b"
+var testInput = ['90: 86 86',
+'122: 86 1 | 99 20',
+'116: 86 58 | 99 75',
+'20: 86 123',
+'62: 99 95 | 86 113',
+'81: 76 99 | 90 86',
+'106: 120 86 | 93 99',
+'73: 99 72 | 86 45',
+'117: 131 99 | 72 86',
+'92: 86 96 | 99 98',
+'13: 3 99 | 118 86',
+'56: 90 86 | 58 99',
+'85: 72 99 | 51 86',
+'51: 99 99 | 86 86',
+'59: 99 25 | 86 62',
+'65: 99 15 | 86 97',
+'112: 86 13 | 99 38',
+'46: 33 86 | 2 99',
+'10: 67 86 | 68 99',
+'33: 120 99 | 76 86',
+'38: 35 86 | 125 99',
+'26: 86 10 | 99 55',
+'1: 33 99 | 60 86',
+'8: 42',
+'16: 51 86 | 93 99',
+'107: 40 99 | 2 86',
+'40: 17 120',
+'34: 86 82 | 99 127',
+'88: 93 17',
+'2: 99 51 | 86 120',
+'32: 100 99 | 7 86',
+'113: 86 127 | 99 82',
+'14: 73 86 | 44 99',
+'25: 86 101 | 99 56',
+'130: 110 86 | 109 99',
+'19: 86 4 | 99 49',
+'30: 86 92 | 99 70',
+'27: 17 86 | 86 99',
+'94: 47 86 | 53 99',
+'115: 86 107 | 99 84',
+'15: 76 99 | 58 86',
+'58: 86 99',
+'105: 130 86 | 32 99',
+'71: 120 99 | 131 86',
+'12: 99 131 | 86 82',
+'60: 72 86 | 93 99',
+'84: 86 102 | 99 80',
+'44: 99 76 | 86 72',
+'125: 76 99 | 131 86',
+'18: 99 71 | 86 52',
+'129: 37 86 | 111 99',
+'102: 99 131 | 86 76',
+'66: 86 105 | 99 41',
+'99: "a"',
+'9: 99 18 | 86 65',
+'131: 17 99 | 99 86',
+'39: 76 99 | 93 86',
+'64: 115 99 | 114 86',
+'57: 86 48 | 99 94',
+'35: 72 86 | 51 99',
+'0: 8 11',
+'77: 86 83 | 99 106',
+'118: 72 86 | 75 99',
+'47: 99 103 | 86 85',
+'23: 99 27 | 86 76',
+'48: 119 99 | 78 86',
+'49: 86 51 | 99 45',
+'67: 86 120',
+'61: 86 72 | 99 127',
+'108: 72 99 | 72 86',
+'95: 86 58 | 99 90',
+'83: 86 27 | 99 131',
+'75: 86 99 | 99 99',
+'101: 51 99 | 27 86',
+'103: 90 99 | 90 86',
+'128: 86 69 | 99 33',
+'70: 99 14 | 86 19',
+'52: 127 86 | 90 99',
+'21: 86 24 | 99 59',
+'22: 86 63 | 99 12',
+'42: 79 86 | 66 99',
+'97: 51 17',
+'104: 86 33 | 99 28',
+'100: 99 16 | 86 39',
+'72: 99 86',
+'78: 86 43 | 99 50',
+'55: 86 6 | 99 34',
+'45: 99 99',
+'5: 86 46 | 99 77',
+'93: 99 99 | 99 86',
+'6: 131 99 | 51 86',
+'110: 71 86 | 28 99',
+'68: 90 86 | 27 99',
+'29: 87 86 | 122 99',
+'80: 86 93 | 99 131',
+'54: 120 86 | 75 99',
+'43: 93 86',
+'98: 99 103 | 86 117',
+'7: 101 86 | 88 99',
+'127: 17 86 | 99 99',
+'96: 86 12 | 99 61',
+'41: 99 5 | 86 112',
+'79: 86 57 | 99 21',
+'11: 42 31',
+'86: "b"',
+'111: 45 99 | 72 86',
+'63: 76 99 | 127 86',
+'124: 86 81 | 99 116',
+'28: 86 75 | 99 58',
+'82: 99 86 | 86 99',
+'121: 64 86 | 74 99',
+'87: 86 124 | 99 104',
+'74: 99 26 | 86 9',
+'31: 126 99 | 121 86',
+'50: 99 72',
+'119: 34 86 | 36 99',
+'36: 86 82 | 99 75',
+'91: 86 131',
+'3: 58 99 | 27 86',
+'114: 99 129 | 86 22',
+'24: 86 89 | 99 128',
+'53: 91 99 | 95 86',
+'126: 29 86 | 30 99',
+'109: 99 108 | 86 23',
+'17: 86 | 99',
+'76: 86 86 | 99 86',
+'120: 17 17',
+'89: 54 86 | 37 99',
+'4: 99 131 | 86 58',
+'69: 27 17',
+'37: 99 58',
+'123: 86 76 | 99 82'
+]
 
-Valid results (OR):
-aab
-aba
+var messages = ['bbababbaabbaaabaaaabbabbbbbababbbababaaaabbaabaaaaaabaaaabbaabba',
+'aaabbbabbabbbbbbaabbabababaaaaabaaabaaaaabaaaabbbbabbabb',
+'babaabaabbabaaaaabbababb',
+'babbabbaababbaaaababbaabbbbbaabaabbbababaabbbabbbabababaabbabbabaabbbaababbbbbbb',
+'bababbbabaaabbaabbababab',
+'aaaaabaaaabbaabaaaaabbaa',
+'aabbbaaaaababbaaabaabbbbabbbaaaaabbaaaab',
+'baaaabaaaabbababbaaabbab',
+'ababababaaaaabaaaaabbaaa',
+'baabaababaaabbaabbbababb',
+'abbbabbbbbabaaabaabbabbb',
+'aaababbbabababbbaabbaaaabababbaa',
+'babbaaabbaaaabaababbbabb',
+'bbbabbbabbabaaaabaabaaab',
+'bbbbaaabaaaabbbaabbbbabb',
+'aaaaaaaaaaaaabaabaaaabbb',
+'babaabbababbabaababbaaba',
+'bbabaaaabaaabbaaaabbbbbbbabbabbbbaaaabab',
+'babaabbbbbbbbbaabbaaabaa',
+'baabbbabababbababaabbbaa',
+'baaaabaaaabaaaaaaaaaaaab',
+'aaabbbbbbbabbbabbbbbabbb',
+'bbabaaabaaababaabbbbbbba',
+'baaabaaabbabbaaaaaaababb',
+'abbabaabbaaaaaaaaabaabba',
+'aaaabababbbbbbaabababbab',
+'bbbbbbabababbaabaabbbabaaaabbabbaabbabbbbaababbbabaabbbbabbabaabababaabaaaaaabab',
+'bbbabbaaaababbabaabaabbbabbbabab',
+'bbbabbbababbbbaabbbbbbab',
+'baabaaaaabaabbbbaaabaaaabbbbbbab',
+'bbbbaaaaaabaaaaaabbbabaababbaabb',
+'bbbbbabaabaaaaababbaaabbbaababbbbbaaabaa',
+'aaabaabaaaabaaaaababbaaaaaababbbaaababab',
+'bbaaaababbbaaabbabbabbabbabbbbabbababaabbbabbabbabaaabbabaaaabba',
+'aababbbaaaabbbaabbbbababbabbaaaa',
+'abbbaabbabaaaaababaaaaaa',
+'babbabbabbaabababbabaaaaaabbbabbbabaabbbbabbbaabbaaaaaba',
+'aabbbaabaaabbabbbbaabaaabbbabbababbaababababbbba',
+'baabbabbbaabbbbbbbaaaaaababababaaabbbbabaabaabbaaaaabbab',
+'bbabaaabbbbbaaaababbabbb',
+'baabaabaaababbbabaaababa',
+'aaaabbbbabbbaabbababaaaa',
+'babbababaaaababababaabab',
+'bbbaabbbabbbabaabbbabbbaaabbaabbabbbbbbbaaaabaaabaaabbaabbbbabbb',
+'aabbaabbabbabbbabaaaabba',
+'abaabbaaaaabbabbaaabbbabbabbaaaa',
+'bababaabbaaabaaababbababbbbbbabbbaaabaab',
+'aaababbbaabbaabbbbaaabbaaababaaabaabbbaa',
+'abbaaababbaaababbaaaabba',
+'bbaababaaabbabaaababbaabbaabbbbaaabbaabbabaaabbabbabbbbbabbbaaabbbababbb',
+'bbaaabbbbbaaabbabaaaabba',
+'abbbabaabbaabaaaaaabbaaa',
+'bbbabaabbbbbbbaababbbbaaabbbabba',
+'abbabbaaaaaabbbbbbabaaabbaaaaaab',
+'bbaababaaaababaabaabbababbbbbaab',
+'aabbababaaabbbaaaaabbabbaabbbbbbbabbbabb',
+'aaabbbaaaababbabbababbbb',
+'aababbababaaabaabababbbb',
+'bbabbbabbbabbbabababbbba',
+'aaabaaaaabbbbbbbbaaaaaab',
+'babaabbbaaabbbabbaaaaaab',
+'bbaabbbaaabbababbbaaabaa',
+'aabbbaaaaaaaaaaaaaaaabaaaabbbbbabbabaaaaabbbbbab',
+'abaaaaabaabbbaaaabbbaaab',
+'abaabbabbabbbbbabbababaa',
+'baaabbaaaabbbabbaaaabaaa',
+'abbbbbaabbaaababbbbabaab',
+'aababbaaaabbbbbabaababaabababaabbabbbaba',
+'abaabaaabbabababababababbaabaaabbbaabaabaabbbababbbabbbabbabbbbbabababaabbabbaba',
+'aaaaaabaaaaabababbbabbabbbaabbabaababbbb',
+'babaaaababaaababaabbabba',
+'ababbaaaabaaabbbbababaaa',
+'baababbbabbbbaaabaababbbabbbbaababaaabaaaabbaabababababaaaaababa',
+'bbaabbababbabaabbbabbabb',
+'bbabbbbaababbaabbbbabbbbbabbabaaaaabbbababbbbaabaaaaaabbbababbbbbabbbabb',
+'baaaaaaababaaaabbbbbaaaaabaabbbbbaababbb',
+'aabbabaaabbbbbaabbbaabab',
+'ababbabbbbaabaaabababaabaaaabbab',
+'aaabbabaaaaabbbbabbbbaaa',
+'bbaaaaabbaaaabaaabbbaaaa',
+'abbbaaaaabbbabbbabbabaaa',
+'bbaaaabbaaaababababaababaaaabbbaaabaabaaaababbabbbaaaabaabaaabbaababbbaaabaabbaababbbaabaabaabbb',
+'bbaabbaaaababbababbaaabbbabbbababbbbbbaabbaabababbababaababbaababbbaaabbaabbbbab',
+'aababbabaaabaaaabbaabbaa',
+'babaaabbaaabaababbabbbbabbbaabaabbaabbbababbabaabababaabbbababbabbbbaababbaabaaa',
+'baabbabbbbaabbbaaabbaaab',
+'abaaaaabbbaababaabbaabab',
+'aaabbbbbaaababaaabababaabbaababb',
+'bbaaababbaabbbbababbbbbabbaabbabbbbbaaabbbabbabb',
+'bbabbbbaabbbbbbbbaaaabba',
+'aababbabaaabaababaabbabbabaaaabaaabbbabaaabbbabbbabaaaaa',
+'babbbbbbaabbbaabbabbbabb',
+'baabbbbaababbaabaaabbabb',
+'aaabaabaabbbaabababbbbaaaaaabaabbabaabbbabaaabbbaaaabababaababbbababbabaaaaaabab',
+'aabbabaabaaaaaaababbababaabaabba',
+'ababbababbaabbbaabaabaababbaabbbaaaabbaa',
+'aabbababaabbbbbbbaababaababbabba',
+'baabbabbbaaaaaaaaaaabaaa',
+'baabbbabaaabbabbbbbbbabb',
+'babaabaaaabaaaaabbbaaaab',
+'baaaaaaababbbbbaabbbbbab',
+'bbabbbabababbaabbaaababa',
+'bbbbabababaaaaababbabbbababbabaaabbaabababbababaaaaabbab',
+'aabbbbbababbabaaabababaaaaabaababbbabbab',
+'babbbbaabaabbbbabbbbbabb',
+'aaabbbabbabaabbbabaaababbaaabaab',
+'abbaaabbbbaaabbbbabbbbbbbbbbabaa',
+'bbabbabaaaabbabbbbbababababbaaabbabaaaaababaaaba',
+'bbaabaaaaabaaababaababbb',
+'baabbaaaaaababbababbaabaabababbbabaaabbbbbbaaabbbbababaababaabbbbbabaaababbaaaabbbaaaaaa',
+'aaabaaabbbbbaaaabbbbabba',
+'abbbaabbbabbbaaaaabaabab',
+'aaabbbaabbaabbabbaabbbbbbbabbaaaaaaabbbaaaaaabab',
+'aaaaaaaaaabbaabaaabbbbaabbaaaaabaaabbaababbbbbab',
+'bbbbababbabababbbbababba',
+'abaaaabaabbbbaaaabbbbbbbbaababbabbbbaabbaabbbbbabaaabbbaaaaaabab',
+'bbbbbbaabaabaaaaaaaaabbaaaaaaababbabbabaabbabbab',
+'abbbbbbbbaaaabaaaababbabbbbbaabb',
+'bababaabaababbbaabbaabab',
+'abaaaabaabaabbabaaabbbbbbbaaaaaa',
+'aaaaaabaababababbbaabbbabbaaaaba',
+'abaabaabbbababbababbaabb',
+'baaabbaabbbaabbbbabbabbb',
+'baababaabaaabaaaabbabbbabababbaabbbbbbba',
+'bbbaabbabbbabaabbaaabbaaaabababaaabbbbaaababbaab',
+'abaabbbbabbabbbbaaaaabab',
+'bbbabaababaabbbbbbbaaaab',
+'abbaaabaaaaaaabaabaaaabaabbaaabbabbabbbbaabaabab',
+'aabaaaaababbbaaaaaaababb',
+'aaabbbaaabaabbbabbbbabaa',
+'aaaaabaababaabbabaaaabaaabbaaaaa',
+'aaaabaabababbbbbaaaaaaaaaabbbbbbbbbbbbababbbbabbbaaabaab',
+'bbabbbabbaabbbbaaaabaabaabaaabbbaaaaaaababbbaaab',
+'aabaaabaaabbababbabababa',
+'babbbaaaaabbbaabbbabbababbbbbbbaabbababa',
+'abbaabaabaabbaaaabaaaaaaababbaab',
+'abaaaababbaabababaabbbababbabaabaaababbbbbbbabba',
+'bbaaaabababbabababbabaabbbaaabbbbbbabbaa',
+'aabbaabbaaabbbaabaaaaaab',
+'bbaabbabaaaabbbabbabbabb',
+'abbaaabbabbbaaaabbbbbaaabbabbabababbbbbbabaabbbbbabbaaaaabaababb',
+'ababbaabbabbbbbbbbabaaaabbbbababbaaabbbabaabaabb',
+'aaabbabaaabbbabaaaaabaabaaababbaabbbabbababbbbabaabbabbb',
+'abbabbaaabababababbbabaaaaaabaabbabaabab',
+'babaabaaababbaaaaabbaaab',
+'aaaaaababababaababbaaaab',
+'ababbabaaababbaaabbbaababaaaaabb',
+'bbaaabbabaaaabaabbabaaaaaaaababbbbbabaaa',
+'bababbbabbaabbabbbbbabba',
+'bbaaabbaaabbbbaabababaabbabbaaaa',
+'aaaabaabaaaaabbaababbaabababbaaa',
+'ababbabaabbabbbbbbaababb',
+'aabbbbbbbaaabbbababababa',
+'bababbbaabbabbaabaaaabab',
+'bbaaabbbaabbbbbaaabaabba',
+'aabbbbaaababbbabbbaabbbb',
+'baaaabaaabaaabbbababbbabaabbbabbaabbbaabbbbbbbabaaaabbaababbaabaaababbbb',
+'babbbbabbbbababbabaaabba',
+'babbbbaaababbbbbbabbbaaabaabbaab',
+'bbbbbbaaaabbbabbaaabaaaabbbabaaaaabaabab',
+'babbbbbabbabaaaaaaaaabbb',
+'ababbbabbabaabbaaaabbabbaaaabbaa',
+'bbbabbbabababbbabbaaabbbbbbbaaba',
+'abbabbaaabaaababbaaaaabb',
+'bbababbabababaaaaababbbbbabbbaabababbaabaabbbaababbaaaba',
+'babbababaabbbaaaabbaaaab',
+'abbaaabbbaaaaaaabbababab',
+'bbbabbbabbabbabababbbbab',
+'babbbaaabababaabaababbbababbbbbaabbbbaba',
+'bbbababaabaabaabababbbbbabaaaababbabbbabbbaaabaababbaaaaabaaaabbaaaabbab',
+'babababbabbabbbaaaaabbab',
+'baabbabbabaabbaaababbbbb',
+'aabbabaaaaaaabbaabbabbbaababbaabababbbbbbabbbababbbaaaba',
+'aababababbbabbbaabbaaaaa',
+'aabababaaabaaabaaabbaababbbabbaabbaaababbbbbbbababababbaabbbbbab',
+'abbbaabbbbabbbbaabbabbab',
+'aaaabbbbaabbaabbbabaaaaa',
+'aababbababaabbbaaabaabba',
+'baaaaabaaaaaabbababaabbbabaaaabbabaabbbaabaaabbaabaababaaaabbaaa',
+'ababbaaabaababaabbbbbababaaabbbb',
+'babbabababbbaaaabbbaabaa',
+'baabbabbbaabbabaaabbbbaabbbaabbaabbabaababaaabaabbaababbbaaaabbb',
+'abaabbbbaaaabaabbbbbbbba',
+'baabbabaaaababaaabbaabbbbbbbbbbb',
+'abbaaaabababbbbabababaabbbaaabbaababaabbbaaaaaaaaabaaaab',
+'bbbabbabaaaabbababbaabababaaaabaaabbaaaabbbababa',
+'bbbababababbbbbbababbbba',
+'bbbbbbaaaaabbbaabaababab',
+'aaaabbbaabbaaababaaababa',
+'bbaaabbabbabaabaaaabaaaaabaaabbabaaababb',
+'ababbabaabaabbaababaaaaa',
+'bbbaabbaaaababbaabbbbabaaabaaaab',
+'abbbabbbbbbabbaaabbaabbbababbbbaaabababb',
+'bbbbbaaabaaabaabaabbaaab',
+'bbaabbababaaababaaabbbabaaaababaabbaaababaabaaab',
+'abbbabbbaabbbbbabbababbb',
+'bbbaabbabbabbbabbaaaabba',
+'bbabaabaababbbaababababaaabaabababaaaaaabaaababb',
+'babaabaaaaaaabaaaabaabba',
+'babbbbbaaabbbaaaaabbababbaababba',
+'aababbaaababbbbbbabbabba',
+'bbabbbabaabbaabbbbbbabaa',
+'ababbababbbababaababbbaa',
+'aaabbbaabbabaabaababbbba',
+'bbaabbabbbabbaaabaabbbababaaabaabbbbbabbbbaaabaaababaaba',
+'baababaabbaaabbabaaababb',
+'abbaabbbababababaaababbbbaabaabb',
+'baabbbbbaaabaababaababba',
+'babaabaababaabbbbaabaabaaaababaababbabba',
+'bbaaaaabaababbaaaabbaabaaabbabbbbababbaa',
+'abbaaabbaaabbbbaaabbbbaaabbaaaabaabbaaabbaababbbabbabbabaaaababb',
+'aaabbaabababaaaabaabaaab',
+'bbaabbaabbbabaaabbabbbbbbbbabaabbabaaabababbbbabbaabbabbbbbabbaa',
+'bbbabbbbbbabbbaabaababab',
+'bbabbbbabbaabbbababbabba',
+'aaabbbaabaabaababaabbabababbaaaabbbbbbba',
+'babbaabababbabababbbbbbaababaabbbaabbbbababaaaabbbaaaaababbabaaabbbbaaaaabaaababbbbaabba',
+'babbbabbbaaaaaaabbaabbbbabbbbabbaaabababaabbbbab',
+'bbaaaaababaaabbaabbbaaaaaababbabbbaabaabaaabaaabbabaabab',
+'baabbbbbabbaaababbbbaaabbbbbbaabbbbbbaabbaaaaababbaaaaaaaabbabba',
+'bbabbbaaabaaabbbabbbabaaaababbaaaabbbaabababbbbabbababaaaaaababb',
+'baaabaaaaabbababbbabbbbaabaabbbaaabbbaabbaaabbabbaaabaab',
+'aaaaaabaaaaabbbabbbaabaa',
+'bbaaabbbbabaaaabbabaaaabaabaaaaababaababaaaabaaaaababbbb',
+'babbaaababbbaabaabbbbaab',
+'aaabbaababbbbbabaaabbaaaaabbbbbaabaabaababababababbabbbb',
+'babababbbaabaaaabaaabbbb',
+'babbabaaaaabbbabbbbbbbaabbbaaaaa',
+'aabbabaabaaabbbaaaaaabab',
+'bbbabbaaabbbbabbbababbabaaabababaababaab',
+'bbabaaaabaabbabbbbbabaabaaababbb',
+'baababbbbaaaabbabbaabbbbbbbbbaaabbbbaaba',
+'aabbaababaaaabaabaabbaba',
+'bbbabbaababaabaaabbbaaaaabaaaabaaabaaababababaaabbababbbbbbbabba',
+'bbabaabaabaaabaabbabbaab',
+'aabaaaaaaaababbbaaababbbbbbaabab',
+'baaaabaaabbbabbbabaaababbaabbaaa',
+'baabbbbabababbbaaababbbabbabbbbabbaabbbaabbabababaaabababaabaabbbabbabba',
+'baabaabaabababaabaaaabbb',
+'abbaabbbbabaabaaababbababaabbabbbabbbbabbbbbaabababbaabb',
+'abbbabbbbbbababaabbbabbabbbbbaab',
+'abaaabbbbbbaabbbaabbaaab',
+'ababbbabbbabbbaaabaaabaababababa',
+'bbbbbbaaabbbaaaaaaabbabaabbbbaabbbbaaaab',
+'bababbbbbabbbbbbbaabbbbbbbababbbbabbabbbabbbbaabbaaaabba',
+'baaabbaaaaaaaababaaabbbaabaabaaabaabababaaabbaaaabbaabaa',
+'aabbaabbbbbabaababaabaaaababbaaabbabbababbbbaabb',
+'abbbbbaabbbabbbbbbbbaaba',
+'aaabbabbbbbabbbababaaabb',
+'abaabaaaaabbaaaababbbaab',
+'aaaabaabbbbbaabababaaaaaaaaaaabb',
+'bbbababaabbbabaabaababba',
+'abbbaabbabaaababbbbbbabb',
+'babbabbbaaaaabbbaababbabbaabbbbbbaaabbaaaabbbbbaabaababbbbaaaaba',
+'aaaaaababbbababababaabab',
+'bbaabaabbbaaaabbabbababaaaaaababaabaaabb',
+'aabbabaababaaaababbbabab',
+'ababbbababaabbbbbaaaabbbbbbbbaababbbbaaabbabbbaaabbbabbbbaaaabbbaaaaaaaaababaaab',
+'bbbabaabaaaaabbaaaabaabb',
+'babbaaabbaabaababbbbaaba',
+'bbabaabababbbbbaabaabaaabbaaabbabbbabaaa',
+'abbabaabbaaaabaabbbaaaba',
+'aabbabaabaaabbbaaaabbbabbabababbbbbaabbb',
+'aabbbbbbabababababbbbbab',
+'abbabbbabbabaababaaabbbb',
+'baaabbaaababbaaabaabaabb',
+'bbbabbbaaaabaaaaabaaababaaaabbbbaabbaaaaabbbabab',
+'aabbbabaaaababaabaaaaaba',
+'abbbabbbababbabbbbaabbaa',
+'abbbbbabaabababbbabababa',
+'bbaabaabaababbaabababaaa',
+'bbabaaabaababbbaaababbbaaaababba',
+'abbaabaababbababaaaabbbaabbabaababbbaabaaaabaaabaabbbbab',
+'babbbaaabbabbbaababbbbaaaabaababaaaabaaa',
+'babababbabaaaabaaabbbabaaabbbabababaaaabbbabbaab',
+'aabbbaababbaaabaababbaababaaabbbaaaaaabaababbaaaaabaaabbbbababaa',
+'abbbabbbaaabbbbaaabaabab',
+'abaabbaaaabbaabbbbbaaaaa',
+'bbabaaabaaaabbbbaabbbaaaaabbbbbbabbbbbbabbbabaaa',
+'bbbabbaababbbbbabbaaaaabbabaabaaababaababaaaaabb',
+'abbbabbbababbaaabbabaaaaabbabbbabbabaabbbaaaaabbabbabaaabbbbbbbb',
+'bababbbaaaabaabaabbababb',
+'abbbbbbbabababaaabbaababbabaaababbaaaaaa',
+'abbaabbbabaaaaabaaaaabbaabaaaaabababbbababbbabab',
+'abbabbbbbbabaaaabbbabbbabbbbaaba',
+'abbaabbbbaabaababaababba',
+'bbabaaababaabbbaaaaaabbb',
+'baabbabaaaaabbabaabbbbabbabbabbabbaaaaaa',
+'babbbbbbababbababbabbbabaabbaaab',
+'aaabaaabbbbabbbbaabbabbbbaaaaaabaabbbaabbaababaa',
+'baabbbbbaaabaababababbab',
+'babbaaabaaaabaababbabbaaaabaabaa',
+'abaabbbbbbabaaaaaabaabab',
+'aaaaabbaabababaabbbbbababbbababbbbaababb',
+'abababababaabaaabbaaababbabbabbb',
+'abaaaaabbbbbbabaaaaabbaa',
+'aaaabbbbbbbbababbbabaabb',
+'bbabbabaabaaabaaaaababab',
+'aaabbbbbabbabbbbbabaababbbaabaababbababb',
+'bbabaabaabbabbaaaabaabba',
+'abbabaaababbaabaaaaabbbabbaaaaabbbaabbabbababaaabaabbaabbbbaaabaaaabbbaabbbbabba',
+'ababbbabaaabbabbaaabbabaaabaabba',
+'bbbabbbbbabbbbbbabaaabaaaaababbbbababaaa',
+'babbabaaabbaaabbabbabaaa',
+'babbbbaaabbbbbaaabaaabaabbbbababbaaababb',
+'abbabbbbabababbbbbabbaaabaaababb',
+'babbababbbaababaabbabbab',
+'bbaaababbbbbaaababbbbabb',
+'baaaabaababaabbbabaabbbaaabbbaabaaaabbab',
+'abbaabbbbbaaaaabbbaabbabbaabbaab',
+'aaaaaababbaababaaabaaabababbbabb',
+'baaabbaabbbababaaababbbaaaaaabba',
+'bbbbabaaaaabaaaaaaababbaaaababbbbbaabaaaaabaaaabaaaabbaabbbbbbbb',
+'abaaabbbbaaabaaababbabba',
+'aaaaabaaaaabbbaabbabaaaaabababaaabbbbbaabbaaaaba',
+'ababbabababbbaaaaaaaabbb',
+'aaababaaabaabbaababbabbb',
+'ababababaabbbabbbaaabaab',
+'baabbbabbaaabaaabaaabbbabbabbabb',
+'bbbabbaabbabbababaabbbbaabaabbabaabaaabbbaaabbbb',
+'aaabbbabaaabbbbbabbabbbbbbbaaaaa',
+'aaabbababbaaababaaaabbaa',
+'bbbabbaaababbbabaaabaabb',
+'baababbabbbabaaababaaababababbaaaababaabbbbaaaabbabaaababbbabaababbabbbbbaaabbab',
+'bbbabbaababaabbabbbbbaaa',
+'abababaabaaaabaaabababbbbaababbbbbabbaaaaaabbaabbbbabababbabaabb',
+'babbbababaaabbbabaababbbaaabababaaaababbbabbaabbabaabbba',
+'bbbabbaabaabbbbaaaaaabaabaaabbab',
+'bbbabbbbaabbaabaaaaabbbbbaabbabbabbaabaababbaabbaaabbaaa',
+'aaababbbbaaaabaaabbabbbbabbbbaba',
+'aaaaabbababaabbabaaaaaaaaaaaaababbbbbbaaababbaaaaabaabab',
+'babbababbaaabbabbabbaaaabbaabaabbaaabbab',
+];
 
-Other example:
-0: 4 1 5
-1: 2 3 | 3 2
-2: 4 4 | 5 5
-3: 4 5 | 5 4
-4: "a"
-5: "b"
+var rules = [];
+testInput.forEach(a=>rules[a.split(': ')[0]] = a.split(': ')[1]);
+rules = rules.map(a=>a.replaceAll('"',''));
 
-a (2 3 | 3 2) b --4 --1 --5 --fazer na ordem 4,1 e 5
-a ((4 4 | 5 5) 3 | 3 (4 4 | 5 5)) b --2 --depois fazer na ordem de novo e por ai vai
-a ((4 4 | 5 5)( 4 5 | 5 4)) | ((4 5 | 5 4) (4 4 | 5 5)) b --3
-a ((a a | b b)( a b | b a)) | ((a b | b a) (a a | b b)) b
-a aa ab b
-a aa ba b
-a bb ab b
-a bb ba b
-a ab aa b
-a ba aa b
-a ab bb b
-a ba bb b
-
--- resolver primeiro q tem pipe, recursivamente, e jogar na posicao 0.
-
---splitar o result acima por pipe, e eh a resposta com as masks
---criar array usando pop/push (???) pra saber os primeiros itens translated que devem ser incluidos no inicio e no fim das translations do meio
-
-
---dar replace (placeholder) de acordo com a chave (numero), e nao dar mais replace ate encontrar aspas (letra). Nao dar placeholder se for a ou b
--- pro caso do pipe, fazer 2 strings com placeholders
--- posso fazer isso recursivo, acabando a recursao quando o caracter tiver aspas
--- no final devolvo uma lista de masks (valid results)
-
-
------------------------------------------------------------------------------------
-const solve = async () => {
-       let rules = new Map();
-       const input = ['0: 4 1 5',
-                        '1: 2 3 | 3 2',
-                        '2: 4 4 | 5 5',
-                        '3: 4 5 | 5 4',
-                        '4: "a"',
-                        '5: "b"'
-                        ];
-        const messages = ['ababbb',
-                           'bababa',
-                           'abbbab',
-                           'aaabbb',
-                           'aaaabbb'
-                          ];
-    try{        
-                  
-           input.forEach(x => {
-                let aux = x.split(':');
-                let values = aux[1].includes('|') ? 
-                    aux[1].split('|').map(i => i.split(' ').filter(j => j != '')) : 
-                    aux[1].split(' ').filter(i => i != '');
-                rules.set(aux[0], values);
-            });        
-            return await convert(rules, rules.get('0'));
-        }catch(e){
-            console.log(e);
-        }
+function expandAll(str) {
+    while (str.match(/\d/)) {
+        let expList = (str.match(/(?<!\d)\d+(?!\d)/g) || []);
+        expList = expList.filter((a,i,ar)=>ar.findIndex(b=>b==a)==i);
+        expList.forEach((exp)=>{
+            str = str.replaceAll(new RegExp(`(?<!\\d)${exp}(?!\\d)`, 'g'), (rules[exp].includes('|')?(`(${rules[exp]})`):rules[exp]));
+        });
+    }
+    return str.replaceAll(' ', '');
 }
-const convert = (rules, ini) => {
-   /* let value = 0;
-    if(ini == "a" || ini == "b"){ //TODO ATIVA ESTA LOGICA PRA FAZER RECURSIVO
-        return ini;
-    }*/
-    ini.map((item,idx) => {
-        let value = "";
-        if(!isNaN(item)){
-            value = rules.get(item);
-            if(value.length > 0 && value[0].constructor === Array){ //TODO TIRAR ISSO E FAEZR RECURSIVO
-              value.forEach((v) => convert(rules, v));
-            }
-            ini[idx] = value;  
-        }else{
-           
-        }
-    });
-    return ini;
+
+// 0: 8 11
+// 8: 42
+// 11: 42 31
+// 0:= 42{2} 31
+var rule42 = expandAll('42');
+var rule31 = expandAll('31');
+
+var loopRule = new RegExp(`^${rule42}{2}${rule31}$`);
+console.log(`Answer 1: ${messages.filter(a=>loopRule.test(a)).length}`);
+
+// 0: 8 11
+// 8: 42 | 42 8
+// 11: 42 31 | 42 11 31
+// 0:= 42+ 42{i} 31{i}
+var valid = [];
+for (let i=1; i<5; i++) {
+    loopRule = new RegExp(`^${rule42}+${rule42}{${i}}${rule31}{${i}}$`);
+    valid.push(...messages.filter(a=>!valid.includes(a)&&loopRule.test(a)));
 }
-
-solve().then((data) => console.log("data:",data)).catch((e) => console.log("error:" + e));
-
-//PRAS POSICOES EM RULE0 QUE SEJAM LIST, DESMEMBRAR EM DIFERENTES RESPOSTS
+console.log(`Answer 2: ${valid.length}`);
