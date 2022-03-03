@@ -138,3 +138,9 @@ foods2.forEach(x => {
 
 console.log('Result: ', count);
 //kfcds, nhms, sbzzf, or trh
+
+//problem 2
+//arrange the ingredients alphabetically by their allergen and separate them by commas to produce your canonical dangerous ingredient list
+const sorted = new Map([...mappedAllergens].sort((a, b) => String(a[1]).localeCompare(b[1])));
+var print = Array.from(sorted.keys()).toString();
+console.log('Result: ', print);
